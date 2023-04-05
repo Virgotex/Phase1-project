@@ -7,12 +7,21 @@ function getMovieInfo(movieTitle) {
     .then(data => {
       const movie = data.results[0];
       if (movie) {
-        const movieInfo = `
-          <h3>${movie.title}</h3>
-          <p>${movie.release_date}</p>
-          <p>${movie.overview}</p>
-        `;
-        document.getElementById('movies').innerHTML = movieInfo;
+        // Get the trailer video
+        fetch(`${BASE_URL}/movie/${movie.id}/videos?api_key=${API_KEY}&language=en-US`)
+          .then(response => response.json())
+          .then(data => {
+            const video = data.results.find(result => result.type === 'Trailer');
+            const trailer = video ? `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${video.key}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : '';
+            const movieInfo = `
+              ${trailer}
+              <h3>${movie.title}</h3>
+              <p>${movie.release_date}</p>
+              <p>${movie.overview}</p>
+            `;
+            document.getElementById('movies').innerHTML = movieInfo;
+          })
+          .catch(error => console.error(error));
       } else {
         document.getElementById('movies').innerHTML = '<p>No movie found.</p>';
       }
@@ -73,3 +82,4 @@ function getPopularMovies() {
 document.addEventListener('DOMContentLoaded', () => {
   getPopularMovies();
 });
+
