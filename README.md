@@ -9,3 +9,5 @@ If the user clicks on a movie poster, the application will display more informat
 The application also includes a feature for users to like movies by clicking on a heart icon. The number of likes for each movie is displayed next to the heart icon.
 
 Overall, the My Movie App is a simple and user-friendly application that allows users to search for movies and get information about them. It was created by Carlton Kibe, and the source code is available on GitHub for anyone to view and use.
+
+Have fun exploring the world of movies.
