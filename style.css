@@ -34,6 +34,7 @@ footer {
 .movie img {
   max-width: 100%;
   vertical-align: middle;
+
 }
 
 .like-button {
@@ -44,8 +45,8 @@ footer {
   text-align: center;
   border-radius: 20px;
   border: none;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: red;
   cursor: pointer;
 }
 
@@ -55,14 +56,15 @@ footer {
 
 .like-button.clicked {
   color: white;
-  background-color: #4CAF50;
+  background-color: red;
 }
 
 .like-button.clicked:before {
-  content: "\f164";
-  font-family: "Font Awesome 5 Free";
+  content: "\2764";
   margin-right: 5px;
 }
+
+
 
 
 
