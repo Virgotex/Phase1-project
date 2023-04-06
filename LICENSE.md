@@ -1,0 +1,1 @@
+The folllowing application is copyrighted and implemented by MIT.All rights reserved
