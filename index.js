@@ -28,4 +28,24 @@ function getMovieInfo(movieTitle) {
     })
     .catch(error => console.error(error));
 }
+function getPopularMovies() {
+  fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+    .then(response => response.json())
+    .then(data => {
+      const moviesContainer = document.getElementById('movies');
+      moviesContainer.innerHTML = '';
+      data.results.forEach(movie => {
+        const movieDiv = document.createElement('div');
+        movieDiv.classList.add('movie');
 
+        const likeButton = document.createElement('button');
+        likeButton.innerHTML = '<i class="far fa-heart"></i>';
+        let likes = 0;
+        const likeCounter = document.createElement('span');
+        likeCounter.classList.add('like-counter');
+        likeCounter.innerText = likes;
+        likeButton.addEventListener('click', () => {
+          likes++;
+          likeCounter.innerText = likes;
+          likeButton.innerHTML = '<i class="fas fa-heart"></i>';
+        });
