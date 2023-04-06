@@ -18,7 +18,7 @@ function getMovieInfo(movieTitle) {
               <h3>${movie.title}</h3>
               <button class="like-button"><i class="far fa-heart"></i></button>
               <span class="like-counter">0</span>
-              <p>${movie.release_date}</p>
+              <br><p>${movie.release_date}</p></br>
               <p>${movie.overview}</p>
             `;
             document.getElementById('movies').innerHTML = movieInfo;
@@ -57,7 +57,7 @@ function getPopularMovies() {
             <h3>${movie.title}</h3>
             <button class="like-button"><i class="far fa-heart"></i></button>
             <span class="like-counter">0</span>
-            <p>${movie.release_date}</p>
+            <br><p>${movie.release_date}</p></br>
             <p>${movie.overview}</p>
           </div>
         `;
