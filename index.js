@@ -16,10 +16,20 @@ function getMovieInfo(movieTitle) {
             const movieInfo = `
               ${trailer}
               <h3>${movie.title}</h3>
+              <button class="like-button"><i class="far fa-heart"></i></button>
+              <span class="like-counter">0</span>
               <p>${movie.release_date}</p>
               <p>${movie.overview}</p>
             `;
             document.getElementById('movies').innerHTML = movieInfo;
+            const likeButton = document.querySelector('.like-button');
+            const likeCounter = document.querySelector('.like-counter');
+            let likes = 0;
+            likeButton.addEventListener('click', () => {
+              likes++;
+              likeCounter.innerText = likes;
+              likeButton.innerHTML = '<i class="fas fa-heart"></i>';
+            });
           })
           .catch(error => console.error(error));
       } else {
@@ -28,6 +38,7 @@ function getMovieInfo(movieTitle) {
     })
     .catch(error => console.error(error));
 }
+
 function getPopularMovies() {
   fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
     .then(response => response.json())
@@ -38,42 +49,29 @@ function getPopularMovies() {
         const movieDiv = document.createElement('div');
         movieDiv.classList.add('movie');
 
-        const likeButton = document.createElement('button');
-        likeButton.innerHTML = '<i class="far fa-heart"></i>';
-        let likes = 0;
-        const likeCounter = document.createElement('span');
-        likeCounter.classList.add('like-counter');
-        likeCounter.innerText = likes;
-        likeButton.addEventListener('click', () => {
-          likes++;
-          likeCounter.innerText = likes;
-          likeButton.innerHTML = '<i class="fas fa-heart"></i>';
-        });
-
-
         const movieInfoDiv = document.createElement('div');
         movieInfoDiv.classList.add('movie-info');
         movieInfoDiv.innerHTML = `
           <img id="movie-${movie.id}" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title} poster" onclick="getMovieInfo('${movie.title}')">
           <div>
             <h3>${movie.title}</h3>
-            <button class="like-button"></button>
+            <button class="like-button"><i class="far fa-heart"></i></button>
             <span class="like-counter">0</span>
             <p>${movie.release_date}</p>
             <p>${movie.overview}</p>
           </div>
         `;
-        const likeCounter1 = movieInfoDiv.querySelector('.like-counter');
-        const likeButton1 = movieInfoDiv.querySelector('.like-button');
-        likeButton1.appendChild(likeButton);
+        movieDiv.appendChild(movieInfoDiv);
+        moviesContainer.appendChild(movieDiv);
+
+        const likeButton = movieDiv.querySelector('.like-button');
+        const likeCounter = movieDiv.querySelector('.like-counter');
+        let likes = 0;
         likeButton.addEventListener('click', () => {
           likes++;
           likeCounter.innerText = likes;
           likeButton.innerHTML = '<i class="fas fa-heart"></i>';
         });
-
-movieDiv.appendChild(movieInfoDiv);
-moviesContainer.appendChild(movieDiv);
       });
     })
     .catch (error => console.error(error));
