@@ -49,3 +49,25 @@ function getPopularMovies() {
           likeCounter.innerText = likes;
           likeButton.innerHTML = '<i class="fas fa-heart"></i>';
         });
+
+
+        const movieInfoDiv = document.createElement('div');
+        movieInfoDiv.classList.add('movie-info');
+        movieInfoDiv.innerHTML = `
+          <img id="movie-${movie.id}" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title} poster" onclick="getMovieInfo('${movie.title}')">
+          <div>
+            <h3>${movie.title}</h3>
+            <button class="like-button"></button>
+            <span class="like-counter">0</span>
+            <p>${movie.release_date}</p>
+            <p>${movie.overview}</p>
+          </div>
+        `;
+        const likeCounter1 = movieInfoDiv.querySelector('.like-counter');
+        const likeButton1 = movieInfoDiv.querySelector('.like-button');
+        likeButton1.appendChild(likeButton);
+        likeButton.addEventListener('click', () => {
+          likes++;
+          likeCounter.innerText = likes;
+          likeButton.innerHTML = '<i class="fas fa-heart"></i>';
+        });
