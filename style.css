@@ -55,13 +55,16 @@ footer {
 
 .like-button.clicked {
   color: white;
-  background-color: red;
+  background-color: #4CAF50;
 }
 
 .like-button.clicked:before {
-  content: "\2764";
+  content: "\f164";
+  font-family: "Font Awesome 5 Free";
   margin-right: 5px;
 }
+
+
 
 #search-container {
   display: flex;
