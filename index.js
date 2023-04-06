@@ -79,6 +79,15 @@ function getPopularMovies() {
     .catch(error => console.error(error));
 }
 
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+
+searchForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const searchTerm = searchInput.value;
+  getMovieInfo(searchTerm);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   getPopularMovies();
 });
