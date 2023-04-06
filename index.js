@@ -13,23 +13,31 @@ function getMovieInfo(movieTitle) {
           .then(data => {
             const video = data.results.find(result => result.type === 'Trailer');
             const trailer = video ? `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${video.key}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : '';
-            const movieInfo = `
-              ${trailer}
-              <h3>${movie.title}</h3>
-              <button class="like-button"><i class="far fa-heart"></i></button>
-              <span class="like-counter">0</span>
-              <br><p>${movie.release_date}</p></br>
-              <p>${movie.overview}</p>
-            `;
-            document.getElementById('movies').innerHTML = movieInfo;
-            const likeButton = document.querySelector('.like-button');
-            const likeCounter = document.querySelector('.like-counter');
-            let likes = 0;
-            likeButton.addEventListener('click', () => {
-              likes++;
-              likeCounter.innerText = likes;
-              likeButton.innerHTML = '<i class="fas fa-heart"></i>';
-            });
+            // Get the cast information
+            fetch(`${BASE_URL}/movie/${movie.id}/credits?api_key=${API_KEY}&language=en-US`)
+              .then(response => response.json())
+              .then(data => {
+                const cast = data.cast.map(actor => actor.name).join(', ');
+                const movieInfo = `
+                  ${trailer}
+                  <h3>${movie.title}</h3>
+                  <p><strong>Cast:</strong> ${cast}</p>
+                  <button class="like-button"><i class="far fa-heart"></i></button>
+                  <span class="like-counter">0</span>
+                  <br><p>${movie.release_date}</p></br>
+                  <p>${movie.overview}</p>
+                `;
+                document.getElementById('movies').innerHTML = movieInfo;
+                const likeButton = document.querySelector('.like-button');
+                const likeCounter = document.querySelector('.like-counter');
+                let likes = 0;
+                likeButton.addEventListener('click', () => {
+                  likes++;
+                  likeCounter.innerText = likes;
+                  likeButton.innerHTML = '<i class="fas fa-heart"></i>';
+                });
+              })
+              .catch(error => console.error(error));
           })
           .catch(error => console.error(error));
       } else {
